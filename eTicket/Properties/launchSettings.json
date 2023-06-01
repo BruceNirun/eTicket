@@ -12,12 +12,13 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
+      "launchUrl": "Movies",
       "applicationUrl": "http://localhost:5156",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "https": {
+    "eTickets": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
