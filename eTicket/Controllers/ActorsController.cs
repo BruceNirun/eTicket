@@ -19,5 +19,10 @@ namespace eTicket.Controllers
             var allActors = await _service.GetAll();
             return View(allActors);
         }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
     }
 }
