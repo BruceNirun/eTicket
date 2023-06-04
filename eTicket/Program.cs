@@ -1,6 +1,7 @@
 using eTicket.Data;
 using eTicket.Data.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace eTicket
 {
@@ -21,6 +22,12 @@ namespace eTicket
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            });
+
 
             var app = builder.Build();
 

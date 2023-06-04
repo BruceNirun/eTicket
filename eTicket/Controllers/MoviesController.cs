@@ -66,5 +66,68 @@ namespace eTicket.Controllers
 
             return RedirectToAction("Index");
         }
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var result = await _context.Movies
+        //        .Include(s => s.Cinema)
+        //        .Include(s => s.Actor_Movie).ThenInclude(s => s.Actor)
+        //        .Include(s => s.Producer)
+        //        .FirstOrDefaultAsync(s => s.Id == id);
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    กรุ๊ปและเลือกข้อมูลนักแสดงเพียงครั้งแรกเท่านั้น
+        //   var distinctActors = result.Actor_Movie.GroupBy(am => am.ActorId)
+        //                                           .Select(g => g.First().Actor);
+
+        //    result.Actor_Movie = distinctActors.Select(a => new Actor_Movie
+        //    {
+        //        ActorId = a.Id,
+        //        Actor = a,
+        //        MovieId = result.Id,
+        //        Movie = result
+        //    }).ToList();
+
+        //    return View(result);
+        //}
+
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var movieDetails = await _context.Movies
+        //        .Include(c => c.Cinema)
+        //        .Include(p => p.Producer)
+        //        .Include(am => am.Actor_Movie).ThenInclude(a => a.Actor)
+        //        .FirstOrDefaultAsync(n => n.Id == id);
+
+        //    return View(movieDetails);
+        //}
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var movieDetails = await _context.Movies
+        //        .Include(c => c.Cinema)
+        //        .Include(p => p.Producer)
+        //        .Include(am => am.Actor_Movies).ThenInclude(am => am.Actor)
+        //        .FirstOrDefaultAsync(n => n.Id == id);
+
+        //    return View(movieDetails);
+        //}
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var movieDetails = await _context.Movies
+                .Include(m => m.Actor_Movies).ThenInclude(am => am.Actor)
+                .Include(m => m.Cinema)
+                .Include(m => m.Producer)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (movieDetails == null)
+            {
+                return NotFound();
+            }
+
+            return View(movieDetails);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace eTicket.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -117,6 +117,11 @@ namespace eTicket.Migrations
                 name: "IX_Actors_Movies_MovieId",
                 table: "Actors_Movies",
                 column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Actors_Actors_ActorId",
+                table: "Actors_Movies",
+                column: "ActorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movies_CinemaId",
