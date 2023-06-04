@@ -46,8 +46,30 @@ namespace eTicket.Controllers
 
             return View();
         }
+        //[HttpPost]
+        //public IActionResult Create(MovieVm data, List<int> actorIds)
+        //{
+        //    var newMovie = new Movie()
+        //    {
+        //        Name = data.Name,
+        //        Description = data.Description,
+        //        Price = data.Price,
+        //        ImageURL = data.ImageURL,
+        //        CinemaId = data.CinemaId,
+        //        StartDate = data.StartDate,
+        //        EndDate = data.EndDate,
+        //        MovieCategory = data.MovieCategory,
+        //        ProducerId = data.ProducerId
+        //    };
+
+        //    _context.Movies.AddAsync(newMovie);
+        //    _context.SaveChangesAsync();
+
+        //    return RedirectToAction("Index");
+        //}
+
         [HttpPost]
-        public IActionResult Create(MovieVm data)
+        public async Task<IActionResult> Create(MovieVm data, List<int> ActorId)
         {
             var newMovie = new Movie()
             {
@@ -61,11 +83,35 @@ namespace eTicket.Controllers
                 MovieCategory = data.MovieCategory,
                 ProducerId = data.ProducerId
             };
-             _context.Movies.AddAsync(newMovie);
-             _context.SaveChangesAsync();
+
+            await _context.Movies.AddAsync(newMovie);
+            await _context.SaveChangesAsync();
+
+            foreach (var actorId in ActorId)
+            {
+                var newActorMovie = new Actor_Movie()
+                {
+                    MovieId = newMovie.Id,
+                    ActorId = actorId
+                };
+
+                _context.Actors_Movies.Add(newActorMovie);
+            }
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
+
+
+
         //public async Task<IActionResult> Details(int id)
         //{
         //    var result = await _context.Movies
