@@ -55,10 +55,14 @@
                                 <select asp-for="MovieCategory" class="form-control" asp-items="Html.GetEnumSelectList<MovieCategory>()"></select>
                                 <span asp-validation-for="MovieCategory" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
+                           @* <div class="form-group">
                                 <label asp-for="ActorId" class="control-label"></label>
                                 <select asp-for="ActorId" class="form-control" asp-items="ViewBag.Actors" multiple></select>
                                 <span asp-validation-for="ActorId" class="text-danger"></span>
+                            </div>*@
+                            <div class="form-group">
+                                <label asp-for="ActorId" class="control-label"></label>
+                                <select id="ActorId" class="form-control" asp-items="ViewBag.Actors" multiple></select>
                             </div>
                             <div class="form-group">
                                 <label asp-for="ProducerId" class="control-label"></label>
@@ -98,5 +102,15 @@
             var output = document.getElementById("ImageUrlPreview");
             output.src = $(this).val();
         })
+    </script>
+
+    <!-- Initialize the "Select2" plugin -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ActorId').select2({
+                placeholder: "เลือกนักแสดง", // This is a hint for the user
+                allowClear: true, // This allows the user to clear their selection
+            });
+        });
     </script>
 }
