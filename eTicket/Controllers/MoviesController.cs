@@ -104,7 +104,33 @@ namespace eTicket.Controllers
         }
 
 
+        //public IActionResult Filter(string searchString)
+        //{
+        //    var allMovies = _context.Cinemas.ToList();
 
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+
+        //        var filteredResultNew = allMovies.Where(n => string.Equals(n.Name, searchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Description, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        //        return View("Index", filteredResultNew);
+        //    }
+
+        //    return View("Index", allMovies);
+        //}
+
+        public IActionResult Filter(string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var movies = _context.Movies.Include(m => m.Cinema).Where(m => m.Name.Contains(searchString));
+                return View("Index", movies.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
 
 
 
